@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "settings": {
+    "title": "Brclio Ledger",
+    "currency": "CNY",
+    "expenseCategories": ["餐饮", "交通", "购物", "居住", "娱乐", "健康", "学习", "人情", "其他"],
+    "incomeCategories": ["工资", "奖金", "副业", "投资", "报销", "其他"],
+    "accounts": ["微信", "支付宝", "银行卡", "现金", "信用卡"]
+  },
+  "rows": [],
+  "meta": {
+    "updatedAt": null,
+    "updatedBy": null
+  }
+}
