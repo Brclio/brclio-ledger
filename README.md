@@ -56,18 +56,18 @@ data/ledger.json（每次保存形成 Git commit）
 
 把 [.env.example](./.env.example) 中的变量加入 Vercel 项目：
 
-| 变量 | 必填 | 说明 |
-| --- | --- | --- |
-| `GITHUB_TOKEN` | 保存必填 | 仅服务端使用的 GitHub Token |
-| `GITHUB_OWNER` | 是 | 默认 `Brclio` |
-| `GITHUB_REPO` | 是 | 默认 `brclio-ledger` |
-| `GITHUB_BRANCH` | 是 | 默认 `main` |
-| `GITHUB_DATA_PATH` | 是 | 默认 `data/ledger.json` |
-| `LEDGER_PASSWORD_HASHES` | 是 | 编辑者名称到加盐 scrypt 校验串的 JSON 对象 |
-| `SESSION_SECRET` | 是 | 至少 32 个随机字符；更换后所有会话失效 |
-| `SESSION_TTL_SECONDS` | 否 | 登录有效期，默认 12 小时 |
-| `GITHUB_COMMITTER_NAME` | 否 | 自定义提交者名称 |
-| `GITHUB_COMMITTER_EMAIL` | 否 | 自定义提交者邮箱 |
+| 变量 | 必填 | 说明 | 填写示例 | 生成 / 获取方式 |
+| --- | --- | --- | --- | --- |
+| `GITHUB_TOKEN` | 保存必填 | 仅服务端使用的 GitHub Token | `github_pat_••••••` | 在 GitHub Settings 创建 fine-grained token，仅授予本仓库 `Contents: Read and write` |
+| `GITHUB_OWNER` | 是 | GitHub 用户名或组织名 | `Brclio` | 从仓库地址 `github.com/<owner>/<repo>` 的 `<owner>` 获取 |
+| `GITHUB_REPO` | 是 | 保存账本的仓库名 | `brclio-ledger` | 从仓库地址 `github.com/<owner>/<repo>` 的 `<repo>` 获取 |
+| `GITHUB_BRANCH` | 是 | 写入数据文件的分支 | `main` | 在本地仓库运行 `git branch --show-current` |
+| `GITHUB_DATA_PATH` | 是 | 数据文件在仓库内的路径 | `data/ledger.json` | 直接填写，并确保仓库内已有对应文件 |
+| `LEDGER_PASSWORD_HASHES` | 是 | 编辑者名称到加盐 scrypt 校验串的 JSON 对象 | `{"owner":"scrypt$16384$8$1$…"}` | 每个密码运行一次 `npm run hash-password`，再按编辑者名称组装为 JSON |
+| `SESSION_SECRET` | 是 | 至少 32 个随机字符；更换后所有会话失效 | `<粘贴生成的 64 位十六进制串>` | 运行 `openssl rand -hex 32` |
+| `SESSION_TTL_SECONDS` | 否 | 登录有效期，默认 12 小时 | `43200` | 直接填写；也可运行 `node -p "12 * 60 * 60"` 换算小时数 |
+| `GITHUB_COMMITTER_NAME` | 否 | 自定义提交者名称 | `Brclio Ledger Bot` | 直接填写；需要与提交者邮箱同时配置 |
+| `GITHUB_COMMITTER_EMAIL` | 否 | 自定义提交者邮箱 | `ledger@example.com` | 填写 GitHub 账户邮箱或 GitHub noreply 邮箱，并与提交者名称同时配置 |
 
 交互式生成密码校验串（输入不会回显，也不会进入 shell 历史）：
 
